@@ -9,6 +9,8 @@ import {
 import { AnimatePresence } from "framer-motion";
 import Signin from "../pages/Auth/Login";
 import Signup from "../pages/Auth/Signup";
+import AdminLogin from "../pages/Auth/AdminLogin";
+import AdminSignup from "../pages/Auth/AdminSignup";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import Welcome from "../pages/Auth/Welcome";
 import VerifyOTP from "../pages/Auth/VerifyOTP";
@@ -68,6 +70,8 @@ const AnimatedRoutes = () => {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/admin-signin" element={<AdminLogin />} />
+        <Route path="/admin-signup" element={<AdminSignup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

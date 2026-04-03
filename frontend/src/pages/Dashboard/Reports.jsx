@@ -50,12 +50,27 @@ const ReportForm = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Validate file type
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    if (!validTypes.includes(file.type)) {
+      setError('Please upload a valid image file (JPEG, PNG, or GIF)');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size should be less than 5MB');
+      return;
+    }
+
+    // Check if file was recently created (likely from camera)
     const now = Date.now();
     const timeDiff = now - file.lastModified;
-    const isCameraPhoto = timeDiff < 5000;
+    const isCameraPhoto = timeDiff < 10000; // Increased to 10 seconds for better detection
 
     setMediaSource(isCameraPhoto ? "camera" : "gallery");
     setMediaFile(file);
+    setError(''); // Clear any previous errors
   };
 
   const handleSubmit = async (e) => {
@@ -68,7 +83,7 @@ const ReportForm = () => {
       setError(t("report.locationFetching"));
       return;
     }
-    if (mediaSource === "gallery" || !mediaFile) {
+    if (!mediaFile) {
       setError(t("report.mediaRequired"));
       return;
     }
@@ -89,7 +104,7 @@ const ReportForm = () => {
 
     setLoading(true);
     try {
-      const response = await API.post("/reports", formData, {
+      const response = await API.post("/api/reports", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (response.status !== 201) throw new Error(t("report.submitError"));
@@ -106,7 +121,8 @@ const ReportForm = () => {
       setMediaSource("");
     } catch (err) {
       console.error("❌ Report error:", err);
-      setError(err.message || t("report.submitError"));
+      const errorMessage = err.response?.data?.message || err.message || t("report.submitError");
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -119,7 +135,7 @@ const ReportForm = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="bg-white min-h-screen px-4 pt-4 pb-24 max-w-xl mx-auto">
+      <div className="bg-white dark:bg-gray-800 min-h-screen px-4 pt-4 pb-24 md:pb-8 max-w-xl mx-auto transition-colors duration-300">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -151,7 +167,7 @@ const ReportForm = () => {
           <motion.div
             whileHover={{ scale: 1.03 }}
             onClick={() => fileInputRef.current.click()}
-            className="w-32 h-32 mx-auto bg-gray-100 flex items-center justify-center rounded-lg cursor-pointer overflow-hidden border border-gray-300"
+            className="w-32 h-32 mx-auto bg-gray-100 dark:bg-gray-700 flex items-center justify-center rounded-lg cursor-pointer overflow-hidden border border-gray-300 dark:border-gray-600"
           >
             {mediaFile ? (
               <img
@@ -167,7 +183,7 @@ const ReportForm = () => {
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/jpg,image/png,image/gif"
             capture="environment"
             onChange={handleMediaCapture}
             className="hidden"
@@ -178,18 +194,18 @@ const ReportForm = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className={`text-xs text-center mb-3 ${
-                mediaSource === "camera" ? "text-green-600" : "text-yellow-600"
+                mediaSource === "camera" ? "text-green-600 dark:text-green-400" : "text-blue-600 dark:text-blue-400"
               }`}
             >
               {mediaSource === "camera"
                 ? t("report.photoReady")
-                : t("report.useRealTimePhoto")}
+                : "Gallery photo selected - Ready to submit!"}
             </motion.p>
           )}
 
           {/* Description */}
           <div className="mb-2">
-            <label className="block mb-1 font-medium">
+            <label className="block mb-1 font-medium dark:text-gray-200">
               {t("report.description")}
             </label>
             <textarea
@@ -197,19 +213,19 @@ const ReportForm = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Tag Select */}
           <div className="mb-2">
-            <label className="block mb-1 font-medium">
+            <label className="block mb-1 font-medium dark:text-gray-200">
               {t("report.selectAuthority")}
             </label>
             <select
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">{t("report.selectOption")}</option>
               {tags.map((tagName) => (

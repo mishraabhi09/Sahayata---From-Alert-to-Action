@@ -1,23 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 @import "leaflet/dist/leaflet.css";
 
 /* src/index.css */
 :root {
-  --font-sans: "Inter", sans-serif;
   --color-bg: #f9fafb;
   --color-text: #111827;
-  width: 100%;
+}
+
+.dark {
+  --color-bg: #111827;
+  --color-text: #f9fafb;
 }
 
 /* Base reset and defaults */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden;
   background-color: var(--color-bg);
   color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
 .font-montserrat {
   font-family: "Montserrat", sans-serif;
 }

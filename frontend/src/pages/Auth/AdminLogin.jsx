@@ -5,7 +5,7 @@ import useAuth from "../../stores/useAuth";
 import API from "../../api/axios";
 import { motion } from "framer-motion";
 
-const Login = () => {
+const AdminLogin = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +29,7 @@ const Login = () => {
     if (!isValidPassword) return setError("Password too short");
 
     try {
-      const res = await API.post("/api/auth/login", {
+      const res = await API.post("/api/auth/admin/login", {
         phone: fullPhone,
         password,
       });
@@ -38,20 +38,24 @@ const Login = () => {
 
       login(user, token); // ✅ Store in Zustand
       setStatus("success");
-      setTimeout(() => navigate("/dashboard/home"), 1000);
+      setTimeout(() => navigate("/admin"), 1000); // Admin Dashboard
     } catch (err) {
-      console.error("Login error:", err);
-      setError("Login failed. Check phone or password.");
+      console.error("Admin Login error:", err);
+      // Show specific message if not admin
+      if (err.response && err.response.data && err.response.data.message) {
+         setError(err.response.data.message);
+      } else {
+         setError("Login failed. Check phone or password.");
+      }
       setStatus("fail");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-6 py-8 relative flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-red-50 to-white px-6 py-8 relative flex flex-col">
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        aria-label={t("login.back")}
         className="absolute top-4 left-4 p-2"
       >
         <img
@@ -66,28 +70,28 @@ const Login = () => {
         <motion.img
           src="/assets/logo.png"
           alt="Logo"
-          className="h-12 mb-4 cursor-pointer"
+          className="h-12 mb-4 cursor-pointer hover:rotate-12 transition-transform duration-300 drop-shadow-md"
           onClick={() => navigate("/")}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         />
         <motion.h1
-          className="text-2xl font-extrabold text-blue-700"
+          className="text-2xl font-extrabold text-red-700 uppercase tracking-wider"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          {t("login.title", "Sign In")}
+          System Admin
         </motion.h1>
-        <p className="text-sm text-gray-500 mt-2">
-          {t("login.subtitle", "Welcome back! Please log in.")}
+        <p className="text-sm text-gray-500 mt-2 font-medium">
+          Authorized personnel only
         </p>
       </div>
 
       {/* Form Container */}
       <motion.div
-        className="w-full max-w-sm bg-white mt-6 p-6 rounded-xl shadow-lg mx-auto space-y-5 text-left"
+        className="w-full max-w-sm bg-white mt-6 p-6 rounded-xl shadow-lg mx-auto space-y-5 text-left border-t-4 border-red-600"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
@@ -96,20 +100,19 @@ const Login = () => {
         <div>
           <label
             htmlFor="phone"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-bold text-gray-700"
           >
-            {t("login.phoneLabel", "Username or Phone Number")}
+            Admin Phone Number
           </label>
-          <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 mt-1 focus-within:ring-2 focus-within:ring-blue-300">
-            <span className="text-sm text-gray-600 mr-2">+977</span>
+          <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 mt-2 focus-within:ring-2 focus-within:ring-red-400">
+            <span className="text-sm text-gray-600 mr-2 font-bold">+977</span>
             <input
               id="phone"
               type="tel"
-              aria-label={t("login.phoneLabel")}
               placeholder="9800000000"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="flex-1 outline-none text-sm"
+              className="flex-1 outline-none text-sm font-medium"
               maxLength={10}
             />
           </div>
@@ -119,28 +122,23 @@ const Login = () => {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-bold text-gray-700"
           >
-            {t("login.passwordLabel", "Password")}
+            Passcode
           </label>
-          <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 mt-1 focus-within:ring-2 focus-within:ring-blue-300">
+          <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 mt-2 focus-within:ring-2 focus-within:ring-red-400">
             <input
               id="password"
               type={showPassword ? "text" : "password"}
-              aria-label={t("login.passwordLabel")}
-              placeholder={t(
-                "login.passwordPlaceholder",
-                "Enter your password"
-              )}
+              placeholder="Enter your admin passcode"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="flex-1 outline-none text-sm"
+              className="flex-1 outline-none text-sm font-medium"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="text-gray-500 text-sm ml-2"
-              aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? "🙈" : "👁️"}
             </button>
@@ -148,58 +146,55 @@ const Login = () => {
         </div>
 
         {/* Remember Me & Forgot Password */}
-        <div className="flex justify-between items-center text-sm text-gray-600">
-          <label className="flex items-center gap-2">
+        <div className="flex justify-between items-center text-sm text-gray-600 font-medium">
+          <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
+              className="accent-red-600 cursor-pointer"
             />
-            {t("login.remember", "Remember for 30 days")}
+            Remember token
           </label>
           <span
             onClick={() => navigate("/forgot-password")}
-            className="text-blue-600 cursor-pointer hover:underline"
+            className="text-red-600 cursor-pointer hover:underline"
           >
-            {t("login.forgot", "Forgot password?")}
+            Forgot passcode?
           </span>
         </div>
 
         {/* Error */}
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-red-600 font-bold bg-red-50 p-2 rounded">{error}</p>}
 
         {/* Login Button */}
         <button
           onClick={handleLogin}
-          aria-label={t("login.login")}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+          className="w-full bg-red-600 text-white py-3 rounded-lg font-bold shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200 uppercase tracking-widest text-sm"
         >
-          {t("login.login", "Login")}
+          Secure Authenticate
         </button>
 
         {/* Feedback */}
         {status === "success" && (
-          <p className="text-green-600 text-sm mt-2">
-            {t("login.success", "Login successful!")}
+          <p className="text-green-600 text-sm mt-2 font-bold text-center">
+            Authentication successful! Initializing Dashboard...
           </p>
-        )}
-        {status === "fail" && (
-          <p className="text-red-500 text-sm mt-2">{t("login.failed")}</p>
         )}
       </motion.div>
 
       {/* Bottom Register Link */}
-      <p className="text-sm text-center mt-6 text-gray-700">
-        {t("login.noAccount", "Don’t have an account?") + " "}
+      <p className="text-sm text-center mt-6 text-gray-700 font-medium">
+        Need an admin account?{" "}
         <span
-          className="text-red-600 font-semibold cursor-pointer hover:underline"
-          onClick={() => navigate("/signup")}
+          className="text-red-700 font-bold cursor-pointer hover:underline"
+          onClick={() => navigate("/admin-signup")}
         >
-          {t("login.register")}
+          Register here
         </span>
       </p>
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;

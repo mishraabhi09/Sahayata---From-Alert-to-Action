@@ -13,7 +13,7 @@ export default function RequireAdmin({ children }) {
   }, [autoLogin]);
 
   if (loading) return <div className="p-6">Loading...</div>;
-  if (!user) return <Navigate to="/signin" />;
+  if (!user) return <Navigate to="/admin-signin" />;
   if (user.role !== "admin") return <Navigate to="/unauthorized" />;
 
   return children;

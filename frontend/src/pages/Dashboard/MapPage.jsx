@@ -105,7 +105,7 @@ const MapPage = () => {
   useEffect(() => {
     async function fetchIncidents() {
       try {
-        const response = await API.get("/reportsLocation");
+        const response = await API.get("/api/reports/locations");
         const data = response.data;
         setIncidents(data);
       } catch (error) {
@@ -156,22 +156,22 @@ const MapPage = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="relative min-h-screen bg-gray-100">
-        <div className="w-full flex align-middle justify-center">
-          <header className="p-4 text-lg font-bold text-blue-700 bg-transparent border-b shadow-sm text-center">
+      <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+        <div className="w-full flex flex-wrap items-center justify-between px-4 py-2 gap-2 border-b dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-300">
+          <header className="text-lg font-bold text-blue-700 dark:text-blue-400">
             {t("map.title")}
           </header>
-          <div className="relative p-4 bg-transparent border-b w-fit">
+          <div className="relative w-fit">
             <button
               onClick={() => setDropdownOpen((prev) => !prev)}
-              className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded shadow-sm w-full justify-between"
+              className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 px-4 py-2 rounded shadow-sm w-full justify-between"
             >
               <span>{t("map.filterLabel")}</span>
               <ChevronDown size={18} />
             </button>
 
             {dropdownOpen && (
-              <div className="absolute z-50 mt-2 w-full bg-white border shadow rounded p-3 space-y-2">
+              <div className="absolute z-50 mt-2 w-full bg-white dark:bg-gray-800 dark:text-gray-200 border dark:border-gray-700 shadow rounded p-3 space-y-2">
                 {incidentTypesConfig.map((type) => (
                   <label
                     key={type.key}
@@ -217,7 +217,7 @@ const MapPage = () => {
           whenCreated={(mapInstance) => {
             mapRef.current = mapInstance;
           }}
-          style={{ height: "80vh", width: "100%" }}
+          style={{ height: "calc(100vh - 120px)", width: "100%" }}
           className="z-0"
         >
           {focusedIncident && (
@@ -247,7 +247,7 @@ const MapPage = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="absolute top-40 left-1/2 transform -translate-x-1/2 bg-white text-gray-600 border rounded shadow px-4 py-2 z-[1000]"
+                  className="absolute top-40 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border dark:border-gray-700 rounded shadow px-4 py-2 z-[1000]"
                 >
                   {t("map.noIncidents")}
                 </motion.div>

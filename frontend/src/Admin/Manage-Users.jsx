@@ -17,7 +17,7 @@ export default function ManageUsers() {
 
   const fetchUsers = async () => {
     try {
-      const res = await API.get("/auth/users");
+      const res = await API.get("/api/auth/users");
       setUsers(res.data);
       setFilteredUsers(res.data);
     } catch (err) {
@@ -43,7 +43,7 @@ export default function ManageUsers() {
       `Are you sure you want to make this user ${newRole}?`,
       async () => {
         try {
-          await API.put(`/auth/users/${userId}/role`, { role: newRole });
+          await API.put(`/api/auth/users/${userId}/role`, { role: newRole });
           setUsers((prev) =>
             prev.map((user) =>
               user._id === userId ? { ...user, role: newRole } : user
@@ -66,7 +66,7 @@ export default function ManageUsers() {
   const handleDeleteUser = (id) => {
     confirmAction("Are you sure you want to delete this user?", async () => {
       try {
-        await API.delete(`/auth/users/${id}`);
+        await API.delete(`/api/auth/users/${id}`);
         setUsers((prev) => prev.filter((u) => u._id !== id));
         setFilteredUsers((prev) => prev.filter((u) => u._id !== id));
         toast.success("User deleted successfully");

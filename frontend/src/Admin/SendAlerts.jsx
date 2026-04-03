@@ -17,7 +17,7 @@ export default function ManageAlerts() {
 
   const fetchAlerts = async () => {
     try {
-      const res = await API.get("/alerts");
+      const res = await API.get("/api/alerts");
       setAlerts(res.data);
     } catch (err) {
       toast.error("Failed to fetch alerts");
@@ -30,7 +30,7 @@ export default function ManageAlerts() {
     if (!confirm("Are you sure you want to delete this alert?")) return;
 
     try {
-      await API.delete(`/alerts/${id}`);
+      await API.delete(`/api/alerts/${id}`);
       setAlerts((prev) => prev.filter((a) => a._id !== id));
       toast.success("Alert deleted");
     } catch (err) {
@@ -51,13 +51,13 @@ export default function ManageAlerts() {
   const handleModalSubmit = async (data) => {
     try {
       if (selectedAlert) {
-        const res = await API.put(`/alerts/${selectedAlert._id}`, data);
+        const res = await API.put(`/api/alerts/${selectedAlert._id}`, data);
         setAlerts((prev) =>
           prev.map((a) => (a._id === selectedAlert._id ? res.data : a))
         );
         toast.success("Alert updated");
       } else {
-        const res = await API.post("/alerts", data);
+        const res = await API.post("/api/alerts", data);
         setAlerts((prev) => [res.data, ...prev]);
         toast.success("Alert created");
       }

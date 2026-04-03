@@ -2,29 +2,26 @@ import { Request, Response } from "express";
 import Report from "../models/reportModel";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
-import { v2 as cloudinary } from "cloudinary";
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import cloudinary from "../config/cloudinary";
 
 export const createReport = async (req: Request, res: Response) => {
   const allowedTypes = [
     "fire",
-    "police",
     "flood",
-    "accident",
     "landslide",
+    "accident",
+    "garbage",
+    "relief",
     "other",
   ];
 
   try {
     const { type, description, location } = req.body;
+    
+    console.log("📥 Report submission data:", { type, description, location, hasFile: !!req.file });
 
     if (!type || typeof type !== "string" || !allowedTypes.includes(type)) {
+      console.log("❌ Invalid type:", type, "Allowed:", allowedTypes);
       return res.status(400).json({
         message: `Invalid type. It must be one of: ${allowedTypes.join(", ")}.`,
       });
@@ -52,13 +49,23 @@ export const createReport = async (req: Request, res: Response) => {
     let imageId = "";
 
     if (req.file) {
-      // Upload to Cloudinary
-      const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-        folder: "reports",
-      });
+      console.log("📷 Processing file upload:", req.file.filename, req.file.path);
+      try {
+        // Upload to Cloudinary
+        const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+          folder: "reports",
+        });
 
-      imageUrl = uploadResult.secure_url;
-      imageId = uploadResult.public_id;
+        imageUrl = uploadResult.secure_url;
+        imageId = uploadResult.public_id;
+        console.log("✅ File uploaded to Cloudinary:", imageUrl);
+      } catch (uploadError) {
+        console.error("❌ Cloudinary upload failed:", uploadError);
+        return res.status(400).json({ 
+          message: "Image upload failed", 
+          error: uploadError.message 
+        });
+      }
     }
 
     const report = new Report({

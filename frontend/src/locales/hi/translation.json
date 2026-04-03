@@ -1,0 +1,189 @@
+{
+  "login": {
+    "back": "वापस",
+    "title": "साइन इन करें",
+    "subtitle": "वापस स्वागत है! कृपया लॉगिन करें।",
+    "phoneLabel": "उपयोगकर्ता नाम या फ़ोन नंबर",
+    "passwordLabel": "पासवर्ड",
+    "passwordPlaceholder": "अपना पासवर्ड दर्ज करें",
+    "remember": "30 दिनों के लिए याद रखें",
+    "forgot": "पासवर्ड भूल गए?",
+    "login": "लॉगिन",
+    "success": "लॉगिन सफल!",
+    "failed": "लॉगिन विफल। कृपया पुनः प्रयास करें।",
+    "noAccount": "खाता नहीं है?",
+    "register": "रजिस्टर करें"
+  },
+  "register": {
+    "back": "वापस",
+    "title": "खाता बनाएं",
+    "subtitle": "स्वागत है! कृपया अपना विवरण दर्ज करें",
+    "name": "पूरा नाम",
+    "namePlaceholder": "आपका नाम",
+    "phone": "फ़ोन नंबर",
+    "password": "पासवर्ड",
+    "passwordPlaceholder": "न्यूनतम 8 अक्षर",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "confirmPasswordPlaceholder": "पासवर्ड दोबारा दर्ज करें",
+    "passwordNote": "पासवर्ड कम से कम 8 अक्षर का होना चाहिए",
+    "signup": "साइन अप",
+    "success": "खाता सफलतापूर्वक बनाया गया! रीडायरेक्ट हो रहा है...",
+    "haveAccount": "पहले से खाता है?",
+    "login": "लॉग इन करें",
+    "showPassword": "पासवर्ड दिखाएं",
+    "hidePassword": "पासवर्ड छुपाएं",
+    "genericError": "कुछ गलत हुआ। पुनः प्रयास करें।",
+    "invalidName": "नाम कम से कम 3 अक्षर का होना चाहिए",
+    "invalidPhone": "फ़ोन नंबर 97 या 98 से शुरू होना चाहिए",
+    "shortPassword": "पासवर्ड कम से कम 8 अक्षर का होना चाहिए",
+    "passwordMismatch": "पासवर्ड मेल नहीं खाते",
+    "loading": "प्रसंस्करण हो रहा है..."
+  },
+  "otp": {
+    "title": "फ़ोन नंबर सत्यापन",
+    "subtitle": "अपने फ़ोन पर भेजा गया 6-अंकीय कोड दर्ज करें",
+    "verify": "सत्यापित करें और जारी रखें",
+    "invalid": "अमान्य कोड। कृपया पुनः प्रयास करें।",
+    "resendText": "कोड नहीं मिला?",
+    "resend": "फिर से भेजें",
+    "back": "वापस जाएं"
+  },
+  "forgotPassword": {
+    "title": "पासवर्ड भूल गए",
+    "subtitle": "OTP प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें",
+    "back": "वापस जाएं",
+    "phoneLabel": "फ़ोन नंबर",
+    "phonePlaceholder": "9800000000",
+    "sendOtpButton": "OTP भेजें"
+  },
+  "dashboard": {
+    "recentIncidents": "हाल की घटनाएं",
+    "sahayatacall": "सहायता कॉल",
+    "Verified": "सत्यापित",
+    "Working": "कार्यरत",
+    "Solved": "हल हो गया",
+    "Pending": "लंबित",
+    "All": "सभी",
+    "latestReports": "नवीनतम रिपोर्ट"
+  },
+  "Latest": "नवीनतम",
+  "Oldest": "पुराना",
+  "mapit": {
+    "filterLabel": "घटनाएं फ़िल्टर करें",
+    "selectAll": "सभी प्रकार"
+  },
+  "map": {
+    "title": "आपदा मानचित्र",
+    "youAreHere": "आप यहाँ हैं",
+    "filterLabel": "घटनाएं फ़िल्टर करें",
+    "selectAll": "सभी चुनें",
+    "clearAll": "सभी हटाएं",
+    "showPath": "रास्ता दिखाएं",
+    "noIncidents": "कोई घटना नहीं मिली"
+  },
+  "incidentTypes": {
+    "incident": "घटना",
+    "complaint": "शिकायत",
+    "suggestion": "सुझाव",
+    "police": "पुलिस",
+    "fire": "आग",
+    "flood": "बाढ़",
+    "landslide": "भूस्खलन",
+    "accident": "दुर्घटना",
+    "garbage": "कचरा",
+    "relief": "राहत",
+    "other": "अन्य"
+  },
+  "fireAuthorities": {
+    "nearbyFireAuthorities": "नजदीकी दमकल सेवाएं",
+    "call": "कॉल करें"
+  },
+  "policeAuthorities": {
+    "nearbyPoliceAuthorities": "नजदीकी पुलिस सेवाएं",
+    "call": "कॉल करें"
+  },
+  "floodAuthorities": {
+    "nearbyFloodAuthorities": "नजदीकी बाढ़ राहत",
+    "call": "कॉल करें"
+  },
+  "accidentAuthorities": {
+    "nearbyAccidentAuthorities": "नजदीकी दुर्घटना प्रतिक्रिया",
+    "call": "कॉल करें"
+  },
+  "landslideAuthorities": {
+    "nearbyLandslideAuthorities": "नजदीकी भूस्खलन बचाव",
+    "call": "कॉल करें"
+  },
+  "otherAuthorities": {
+    "nearbyOtherAuthorities": "अन्य आपातकालीन सेवाएं",
+    "call": "कॉल करें"
+  },
+  "selectEmergencyType": "आपातकाल का प्रकार चुनें",
+  "emergency": {
+    "fire": "आग",
+    "police": "पुलिस",
+    "flood": "बाढ़",
+    "accident": "दुर्घटना",
+    "landslide": "भूस्खलन",
+    "other": "अन्य"
+  },
+  "navigation": {
+    "home": "होम",
+    "report": "रिपोर्ट",
+    "map": "मानचित्र",
+    "alerts": "अलर्ट",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग",
+    "logout": "लॉगआउट",
+    "hello": "नमस्ते",
+    "citizen": "नागरिक",
+    "tillotama": "तिलोत्तमा",
+    "butwal": "बुटवल",
+    "detectingLocalGovernment": "आपकी स्थानीय सरकार का पता लगाया जा रहा है..."
+  },
+  "alerts": {
+    "title": "आपातकालीन अलर्ट"
+  },
+  "report": {
+    "getLocation": "स्थान प्राप्त करें",
+    "description": "विवरण",
+    "descriptionPlaceholder": "समस्या का संक्षेप में वर्णन करें...",
+    "selectAuthority": "संबंधित प्राधिकरण चुनें",
+    "selectOption": "प्रकार चुनें",
+    "submit": "रिपोर्ट भेजें",
+    "submitting": "भेज रहे हैं",
+    "success": "रिपोर्ट सफलतापूर्वक भेजी गई!",
+    "photoReady": "फ़ोटो तैयार है",
+    "useRealTimePhoto": "कृपया कैमरे से वास्तविक समय की फ़ोटो लें।",
+    "locationRequired": "रिपोर्ट भेजने के लिए स्थान आवश्यक है।",
+    "descriptionRequired": "कृपया संक्षिप्त विवरण दें।",
+    "mediaRequired": "कृपया एक मान्य चित्र या वीडियो अपलोड करें।",
+    "tagRequired": "कृपया प्राधिकरण प्रकार चुनें।",
+    "submitFailed": "कुछ गलत हुआ। कृपया बाद में पुनः प्रयास करें।",
+    "locationError": "स्थान प्राप्त करने में त्रुटि।",
+    "locationFetching": "स्थान प्राप्त किया जा रहा है, कृपया प्रतीक्षा करें..."
+  },
+  "profile": {
+    "title": "मेरी प्रोफ़ाइल",
+    "back": "वापस",
+    "phone": "फ़ोन",
+    "email": "ईमेल",
+    "gender": "लिंग",
+    "citizenship": "नागरिकता ID",
+    "address": "पता",
+    "language": "भाषा",
+    "fontSize": "फ़ॉन्ट आकार",
+    "fontFamily": "फ़ॉन्ट शैली",
+    "theme": "थीम",
+    "verification": "सत्यापन",
+    "verified": "सत्यापित",
+    "notVerified": "असत्यापित",
+    "community": "एक जिम्मेदार नागरिक होने के लिए धन्यवाद!"
+  },
+  "auth": {
+    "logout": "लॉगआउट",
+    "tagline": "अलर्ट से कार्रवाई तक - तुरंत",
+    "login": "लॉगिन",
+    "register": "रजिस्टर"
+  }
+}

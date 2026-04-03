@@ -1,0 +1,189 @@
+{
+  "login": {
+    "back": "ಹಿಂದೆ",
+    "title": "ಸೈನ್ ಇನ್ ಮಾಡಿ",
+    "subtitle": "ಮತ್ತೆ ಸ್ವಾಗತ! ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಮಾಡಿ.",
+    "phoneLabel": "ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ",
+    "passwordLabel": "ಪಾಸ್‌ವರ್ಡ್",
+    "passwordPlaceholder": "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+    "remember": "30 ದಿನಗಳವರೆಗೆ ನೆನಪಿಡಿ",
+    "forgot": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿದ್ದೀರಾ?",
+    "login": "ಲಾಗಿನ್",
+    "success": "ಲಾಗಿನ್ ಯಶಸ್ವಿ!",
+    "failed": "ಲಾಗಿನ್ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "noAccount": "ಖಾತೆ ಇಲ್ಲವೇ?",
+    "register": "ನೋಂದಾಯಿಸಿ"
+  },
+  "register": {
+    "back": "ಹಿಂದೆ",
+    "title": "ಖಾತೆ ತೆರೆಯಿರಿ",
+    "subtitle": "ಸ್ವಾಗತ! ದಯವಿಟ್ಟು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ",
+    "name": "ಪೂರ್ತಿ ಹೆಸರು",
+    "namePlaceholder": "ನಿಮ್ಮ ಹೆಸರು",
+    "phone": "ಫೋನ್ ಸಂಖ್ಯೆ",
+    "password": "ಪಾಸ್‌ವರ್ಡ್",
+    "passwordPlaceholder": "ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳು",
+    "confirmPassword": "ಪಾಸ್‌ವರ್ಡ್ ದೃಢಪಡಿಸಿ",
+    "confirmPasswordPlaceholder": "ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತೆ ಹಾಕಿ",
+    "passwordNote": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳಿರಬೇಕು",
+    "signup": "ಸೈನ್ ಅಪ್",
+    "success": "ಖಾತೆ ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ! ಮರುನಿರ್ದೇಶಿಸಲಾಗುತ್ತಿದೆ...",
+    "haveAccount": "ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ?",
+    "login": "ಲಾಗ್ ಇನ್ ಮಾಡಿ",
+    "showPassword": "ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಿ",
+    "hidePassword": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆಮಾಡಿ",
+    "genericError": "ಏನೋ ತಪ್ಪಾಯಿತು. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "invalidName": "ಹೆಸರು ಕನಿಷ್ಠ 3 ಅಕ್ಷರಗಳಿರಬೇಕು",
+    "invalidPhone": "ಫೋನ್ ಸಂಖ್ಯೆ 97 ಅಥವಾ 98 ದಿಂದ ಪ್ರಾರಂಭವಾಗಬೇಕು",
+    "shortPassword": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳಿರಬೇಕು",
+    "passwordMismatch": "ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ",
+    "loading": "ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."
+  },
+  "otp": {
+    "title": "ಫೋನ್ ಸಂಖ್ಯೆ ಪರಿಶೀಲನೆ",
+    "subtitle": "ನಿಮ್ಮ ಫೋನಿಗೆ ಕಳುಹಿಸಲಾದ 6-ಅಂಕಿಯ ಕೋಡ್ ನಮೂದಿಸಿ",
+    "verify": "ಪರಿಶೀಲಿಸಿ & ಮುಂದುವರಿಯಿರಿ",
+    "invalid": "ಅಮಾನ್ಯ ಕೋಡ್. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "resendText": "ಕೋಡ್ ಸ್ವೀಕರಿಸಿಲ್ಲವೇ?",
+    "resend": "ಮತ್ತೆ ಕಳುಹಿಸಿ",
+    "back": "ಹಿಂದೆ ಹೋಗಿ"
+  },
+  "forgotPassword": {
+    "title": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿದ್ದೀರಾ",
+    "subtitle": "OTP ಪಡೆಯಲು ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ",
+    "back": "ಹಿಂದೆ ಹೋಗಿ",
+    "phoneLabel": "ಫೋನ್ ಸಂಖ್ಯೆ",
+    "phonePlaceholder": "9800000000",
+    "sendOtpButton": "OTP ಕಳುಹಿಸಿ"
+  },
+  "dashboard": {
+    "recentIncidents": "ಇತ್ತೀಚಿನ ಘಟನೆಗಳು",
+    "sahayatacall": "ಸಹಾಯ ಕರೆ",
+    "Verified": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+    "Working": "ಕಾರ್ಯನಿರ್ವಹಣೆಯಲ್ಲಿ",
+    "Solved": "ಪರಿಹರಿಸಲಾಗಿದೆ",
+    "Pending": "ಬಾಕಿ",
+    "All": "ಎಲ್ಲಾ",
+    "latestReports": "ಇತ್ತೀಚಿನ ವರದಿಗಳು"
+  },
+  "Latest": "ಇತ್ತೀಚಿನ",
+  "Oldest": "ಹಳೆಯ",
+  "mapit": {
+    "filterLabel": "ಘಟನೆಗಳನ್ನು ಫಿಲ್ಟರ್ ಮಾಡಿ",
+    "selectAll": "ಎಲ್ಲಾ ಪ್ರಕಾರಗಳು"
+  },
+  "map": {
+    "title": "ವಿಪತ್ತು ನಕ್ಷೆ",
+    "youAreHere": "ನೀವು ಇಲ್ಲಿ ಇದ್ದೀರಿ",
+    "filterLabel": "ಘಟನೆಗಳನ್ನು ಫಿಲ್ಟರ್ ಮಾಡಿ",
+    "selectAll": "ಎಲ್ಲಾ ಆಯ್ಕೆ ಮಾಡಿ",
+    "clearAll": "ಎಲ್ಲಾ ತೆಗೆದುಹಾಕಿ",
+    "showPath": "ದಾರಿ ತೋರಿಸಿ",
+    "noIncidents": "ಯಾವುದೇ ಘಟನೆ ಕಂಡುಬಂದಿಲ್ಲ"
+  },
+  "incidentTypes": {
+    "incident": "ಘಟನೆ",
+    "complaint": "ದೂರು",
+    "suggestion": "ಸಲಹೆ",
+    "police": "ಪೊಲೀಸ್",
+    "fire": "ಬೆಂಕಿ",
+    "flood": "ಪ್ರವಾಹ",
+    "landslide": "ಭೂಕುಸಿತ",
+    "accident": "ಅಪಘಾತ",
+    "garbage": "ಕಸ",
+    "relief": "ಪರಿಹಾರ",
+    "other": "ಇತರ"
+  },
+  "fireAuthorities": {
+    "nearbyFireAuthorities": "ಹತ್ತಿರದ ಅಗ್ನಿಶಾಮಕ ಸೇವೆಗಳು",
+    "call": "ಕರೆ ಮಾಡಿ"
+  },
+  "policeAuthorities": {
+    "nearbyPoliceAuthorities": "ಹತ್ತಿರದ ಪೊಲೀಸ್ ಸೇವೆಗಳು",
+    "call": "ಕರೆ ಮಾಡಿ"
+  },
+  "floodAuthorities": {
+    "nearbyFloodAuthorities": "ಹತ್ತಿರದ ಪ್ರವಾಹ ಪರಿಹಾರ",
+    "call": "ಕರೆ ಮಾಡಿ"
+  },
+  "accidentAuthorities": {
+    "nearbyAccidentAuthorities": "ಹತ್ತಿರದ ಅಪಘಾತ ಪ್ರತಿಕ್ರಿಯೆ",
+    "call": "ಕರೆ ಮಾಡಿ"
+  },
+  "landslideAuthorities": {
+    "nearbyLandslideAuthorities": "ಹತ್ತಿರದ ಭೂಕುಸಿತ ರಕ್ಷಣೆ",
+    "call": "ಕರೆ ಮಾಡಿ"
+  },
+  "otherAuthorities": {
+    "nearbyOtherAuthorities": "ಇತರ ತುರ್ತು ಸೇವೆಗಳು",
+    "call": "ಕರೆ ಮಾಡಿ"
+  },
+  "selectEmergencyType": "ತುರ್ತು ಪ್ರಕಾರ ಆಯ್ಕೆ ಮಾಡಿ",
+  "emergency": {
+    "fire": "ಬೆಂಕಿ",
+    "police": "ಪೊಲೀಸ್",
+    "flood": "ಪ್ರವಾಹ",
+    "accident": "ಅಪಘಾತ",
+    "landslide": "ಭೂಕುಸಿತ",
+    "other": "ಇತರ"
+  },
+  "navigation": {
+    "home": "ಮನೆ",
+    "report": "ವರದಿ",
+    "map": "ನಕ್ಷೆ",
+    "alerts": "ಎಚ್ಚರಿಕೆಗಳು",
+    "profile": "ಪ್ರೊಫೈಲ್",
+    "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+    "logout": "ಲಾಗ್‌ಔಟ್",
+    "hello": "ನಮಸ್ಕಾರ",
+    "citizen": "ನಾಗರಿಕ",
+    "tillotama": "ತಿಲೋತ್ತಮಾ",
+    "butwal": "ಬುಟ್ವಾಲ್",
+    "detectingLocalGovernment": "ನಿಮ್ಮ ಸ್ಥಳೀಯ ಸರ್ಕಾರ ಪತ್ತೆ ಮಾಡಲಾಗುತ್ತಿದೆ..."
+  },
+  "alerts": {
+    "title": "ತುರ್ತು ಎಚ್ಚರಿಕೆಗಳು"
+  },
+  "report": {
+    "getLocation": "ಸ್ಥಳ ಪಡೆಯಿರಿ",
+    "description": "ವಿವರಣೆ",
+    "descriptionPlaceholder": "ಸಮಸ್ಯೆಯನ್ನು ಸಂಕ್ಷಿಪ್ತವಾಗಿ ವಿವರಿಸಿ...",
+    "selectAuthority": "ಸಂಬಂಧಿತ ಪ್ರಾಧಿಕಾರ ಆಯ್ಕೆ ಮಾಡಿ",
+    "selectOption": "ಪ್ರಕಾರ ಆಯ್ಕೆ ಮಾಡಿ",
+    "submit": "ವರದಿ ಕಳುಹಿಸಿ",
+    "submitting": "ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ",
+    "success": "ವರದಿ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ!",
+    "photoReady": "ಫೋಟೋ ಸಿದ್ಧ",
+    "useRealTimePhoto": "ದಯವಿಟ್ಟು ಕ್ಯಾಮೆರಾ ಬಳಸಿ ನೈಜ ಸಮಯದ ಫೋಟೋ ತೆಗೆಯಿರಿ.",
+    "locationRequired": "ವರದಿ ಕಳುಹಿಸಲು ಸ್ಥಳ ಅಗತ್ಯ.",
+    "descriptionRequired": "ದಯವಿಟ್ಟು ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ ನೀಡಿ.",
+    "mediaRequired": "ದಯವಿಟ್ಟು ಮಾನ್ಯ ಚಿತ್ರ ಅಥವಾ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.",
+    "tagRequired": "ದಯವಿಟ್ಟು ಪ್ರಾಧಿಕಾರ ಪ್ರಕಾರ ಆಯ್ಕೆ ಮಾಡಿ.",
+    "submitFailed": "ಏನೋ ತಪ್ಪಾಯಿತು. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "locationError": "ಸ್ಥಳ ಪಡೆಯುವಲ್ಲಿ ದೋಷ.",
+    "locationFetching": "ಸ್ಥಳ ಪಡೆಯಲಾಗುತ್ತಿದೆ, ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ..."
+  },
+  "profile": {
+    "title": "ನನ್ನ ಪ್ರೊಫೈಲ್",
+    "back": "ಹಿಂದೆ",
+    "phone": "ಫೋನ್",
+    "email": "ಇಮೇಲ್",
+    "gender": "ಲಿಂಗ",
+    "citizenship": "ಪೌರತ್ವ ID",
+    "address": "ವಿಳಾಸ",
+    "language": "ಭಾಷೆ",
+    "fontSize": "ಅಕ್ಷರ ಗಾತ್ರ",
+    "fontFamily": "ಅಕ್ಷರ ಶೈಲಿ",
+    "theme": "ಥೀಮ್",
+    "verification": "ಪರಿಶೀಲನೆ",
+    "verified": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+    "notVerified": "ಪರಿಶೀಲಿಸಿಲ್ಲ",
+    "community": "ಜವಾಬ್ದಾರಿಯುತ ನಾಗರಿಕರಾಗಿರಿ, ಧನ್ಯವಾದಗಳು!"
+  },
+  "auth": {
+    "logout": "ಲಾಗ್‌ಔಟ್",
+    "tagline": "ಎಚ್ಚರಿಕೆಯಿಂದ ಕ್ರಿಯೆಯವರೆಗೆ - ತಕ್ಷಣ",
+    "login": "ಲಾಗಿನ್",
+    "register": "ನೋಂದಾಯಿಸಿ"
+  }
+}

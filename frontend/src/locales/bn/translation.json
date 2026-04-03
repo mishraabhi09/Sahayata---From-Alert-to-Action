@@ -1,0 +1,189 @@
+{
+  "login": {
+    "back": "পিছনে",
+    "title": "সাইন ইন করুন",
+    "subtitle": "ফিরে আসায় স্বাগত! অনুগ্রহ করে লগইন করুন।",
+    "phoneLabel": "ব্যবহারকারীর নাম বা ফোন নম্বর",
+    "passwordLabel": "পাসওয়ার্ড",
+    "passwordPlaceholder": "আপনার পাসওয়ার্ড দিন",
+    "remember": "৩০ দিনের জন্য মনে রাখুন",
+    "forgot": "পাসওয়ার্ড ভুলে গেছেন?",
+    "login": "লগইন",
+    "success": "লগইন সফল!",
+    "failed": "লগইন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।",
+    "noAccount": "অ্যাকাউন্ট নেই?",
+    "register": "নিবন্ধন করুন"
+  },
+  "register": {
+    "back": "পিছনে",
+    "title": "অ্যাকাউন্ট তৈরি করুন",
+    "subtitle": "স্বাগত! অনুগ্রহ করে আপনার তথ্য দিন",
+    "name": "পুরো নাম",
+    "namePlaceholder": "আপনার নাম",
+    "phone": "ফোন নম্বর",
+    "password": "পাসওয়ার্ড",
+    "passwordPlaceholder": "কমপক্ষে ৮ অক্ষর",
+    "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+    "confirmPasswordPlaceholder": "পাসওয়ার্ড আবার দিন",
+    "passwordNote": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে",
+    "signup": "সাইন আপ",
+    "success": "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! পুনঃনির্দেশ করা হচ্ছে...",
+    "haveAccount": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
+    "login": "লগ ইন করুন",
+    "showPassword": "পাসওয়ার্ড দেখান",
+    "hidePassword": "পাসওয়ার্ড লুকান",
+    "genericError": "কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।",
+    "invalidName": "নাম কমপক্ষে ৩ অক্ষরের হতে হবে",
+    "invalidPhone": "ফোন নম্বর ৯৭ বা ৯৮ দিয়ে শুরু হতে হবে",
+    "shortPassword": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে",
+    "passwordMismatch": "পাসওয়ার্ড মিলছে না",
+    "loading": "প্রক্রিয়াকরণ হচ্ছে..."
+  },
+  "otp": {
+    "title": "ফোন নম্বর যাচাইকরণ",
+    "subtitle": "আপনার ফোনে পাঠানো ৬-সংখ্যার কোড দিন",
+    "verify": "যাচাই করুন ও এগিয়ে যান",
+    "invalid": "অবৈধ কোড। আবার চেষ্টা করুন।",
+    "resendText": "কোড পাননি?",
+    "resend": "আবার পাঠান",
+    "back": "পিছনে যান"
+  },
+  "forgotPassword": {
+    "title": "পাসওয়ার্ড ভুলে গেছেন",
+    "subtitle": "OTP পেতে আপনার ফোন নম্বর দিন",
+    "back": "পিছনে যান",
+    "phoneLabel": "ফোন নম্বর",
+    "phonePlaceholder": "9800000000",
+    "sendOtpButton": "OTP পাঠান"
+  },
+  "dashboard": {
+    "recentIncidents": "সাম্প্রতিক ঘটনা",
+    "sahayatacall": "সহায়তা কল",
+    "Verified": "যাচাইকৃত",
+    "Working": "কার্যরত",
+    "Solved": "সমাধান হয়েছে",
+    "Pending": "অপেক্ষমান",
+    "All": "সব",
+    "latestReports": "সর্বশেষ রিপোর্ট"
+  },
+  "Latest": "সর্বশেষ",
+  "Oldest": "পুরানো",
+  "mapit": {
+    "filterLabel": "ঘটনা ফিল্টার করুন",
+    "selectAll": "সব ধরণ"
+  },
+  "map": {
+    "title": "দুর্যোগ মানচিত্র",
+    "youAreHere": "আপনি এখানে আছেন",
+    "filterLabel": "ঘটনা ফিল্টার করুন",
+    "selectAll": "সব নির্বাচন করুন",
+    "clearAll": "সব সরান",
+    "showPath": "পথ দেখান",
+    "noIncidents": "কোন ঘটনা পাওয়া যায়নি"
+  },
+  "incidentTypes": {
+    "incident": "ঘটনা",
+    "complaint": "অভিযোগ",
+    "suggestion": "পরামর্শ",
+    "police": "পুলিশ",
+    "fire": "আগুন",
+    "flood": "বন্যা",
+    "landslide": "ভূমিধস",
+    "accident": "দুর্ঘটনা",
+    "garbage": "আবর্জনা",
+    "relief": "ত্রাণ",
+    "other": "অন্যান্য"
+  },
+  "fireAuthorities": {
+    "nearbyFireAuthorities": "কাছের দমকল সেবা",
+    "call": "কল করুন"
+  },
+  "policeAuthorities": {
+    "nearbyPoliceAuthorities": "কাছের পুলিশ সেবা",
+    "call": "কল করুন"
+  },
+  "floodAuthorities": {
+    "nearbyFloodAuthorities": "কাছের বন্যা ত্রাণ",
+    "call": "কল করুন"
+  },
+  "accidentAuthorities": {
+    "nearbyAccidentAuthorities": "কাছের দুর্ঘটনা সাড়া",
+    "call": "কল করুন"
+  },
+  "landslideAuthorities": {
+    "nearbyLandslideAuthorities": "কাছের ভূমিধস উদ্ধার",
+    "call": "কল করুন"
+  },
+  "otherAuthorities": {
+    "nearbyOtherAuthorities": "অন্যান্য জরুরি সেবা",
+    "call": "কল করুন"
+  },
+  "selectEmergencyType": "জরুরি ধরন নির্বাচন করুন",
+  "emergency": {
+    "fire": "আগুন",
+    "police": "পুলিশ",
+    "flood": "বন্যা",
+    "accident": "দুর্ঘটনা",
+    "landslide": "ভূমিধস",
+    "other": "অন্যান্য"
+  },
+  "navigation": {
+    "home": "হোম",
+    "report": "রিপোর্ট",
+    "map": "মানচিত্র",
+    "alerts": "সতর্কতা",
+    "profile": "প্রোফাইল",
+    "settings": "সেটিংস",
+    "logout": "লগআউট",
+    "hello": "নমস্কার",
+    "citizen": "নাগরিক",
+    "tillotama": "তিলোত্তমা",
+    "butwal": "বুটওয়াল",
+    "detectingLocalGovernment": "আপনার স্থানীয় সরকার খোঁজা হচ্ছে..."
+  },
+  "alerts": {
+    "title": "জরুরি সতর্কতা"
+  },
+  "report": {
+    "getLocation": "অবস্থান পান",
+    "description": "বিবরণ",
+    "descriptionPlaceholder": "সমস্যাটি সংক্ষেপে বর্ণনা করুন...",
+    "selectAuthority": "সংশ্লিষ্ট কর্তৃপক্ষ নির্বাচন করুন",
+    "selectOption": "ধরন বেছে নিন",
+    "submit": "রিপোর্ট পাঠান",
+    "submitting": "পাঠানো হচ্ছে",
+    "success": "রিপোর্ট সফলভাবে পাঠানো হয়েছে!",
+    "photoReady": "ছবি প্রস্তুত",
+    "useRealTimePhoto": "অনুগ্রহ করে ক্যামেরা দিয়ে সরাসরি ছবি তুলুন।",
+    "locationRequired": "রিপোর্ট পাঠাতে অবস্থান প্রয়োজন।",
+    "descriptionRequired": "অনুগ্রহ করে সংক্ষিপ্ত বিবরণ দিন।",
+    "mediaRequired": "অনুগ্রহ করে একটি বৈধ ছবি বা ভিডিও আপলোড করুন।",
+    "tagRequired": "অনুগ্রহ করে কর্তৃপক্ষের ধরন নির্বাচন করুন।",
+    "submitFailed": "কিছু একটা ভুল হয়েছে। পরে আবার চেষ্টা করুন।",
+    "locationError": "অবস্থান পেতে সমস্যা হয়েছে।",
+    "locationFetching": "অবস্থান পাওয়া হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন..."
+  },
+  "profile": {
+    "title": "আমার প্রোফাইল",
+    "back": "পিছনে",
+    "phone": "ফোন",
+    "email": "ইমেইল",
+    "gender": "লিঙ্গ",
+    "citizenship": "নাগরিকত্ব ID",
+    "address": "ঠিকানা",
+    "language": "ভাষা",
+    "fontSize": "ফন্ট আকার",
+    "fontFamily": "ফন্ট স্টাইল",
+    "theme": "থিম",
+    "verification": "যাচাইকরণ",
+    "verified": "যাচাইকৃত",
+    "notVerified": "অযাচাইকৃত",
+    "community": "দায়িত্বশীল নাগরিক হওয়ার জন্য ধন্যবাদ!"
+  },
+  "auth": {
+    "logout": "লগআউট",
+    "tagline": "সতর্কতা থেকে পদক্ষেপ পর্যন্ত - তাৎক্ষণিক",
+    "login": "লগইন",
+    "register": "নিবন্ধন"
+  }
+}

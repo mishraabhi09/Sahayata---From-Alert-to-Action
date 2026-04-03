@@ -14,13 +14,13 @@ import authenticateToken from "../middlewares/authenticateToken";
 
 const router = Router();
 
-router.post("/reports", uploadImage, createReport);
-router.put("/reports/verify/:id", authenticateToken, verifyReport);
-router.get("/reports", getAllReports);
-router.get("/reports/:id", getReportById);
-router.get("/reportsLocation", getAllReportLocations);
-router.put("/reports/:id/status", changeReportStatus);
-router.delete("/reports/:id", authenticateToken, deleteReport);
-router.put("/reports/:id", authenticateToken, updateReport);
+router.post("/", uploadImage, createReport);
+router.put("/verify/:id", authenticateToken, verifyReport);
+router.get("/", getAllReports);
+router.get("/locations", getAllReportLocations);
+router.get("/:id", getReportById);
+router.put("/:id/status", changeReportStatus);
+router.delete("/:id", authenticateToken, deleteReport);
+router.put("/:id", authenticateToken, updateReport);
 
 export default router;

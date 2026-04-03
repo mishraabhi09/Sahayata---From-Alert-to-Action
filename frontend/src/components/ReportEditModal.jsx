@@ -34,7 +34,7 @@ export default function ReportEditModal({ report, onClose, onUpdate }) {
     if (!window.confirm("Are you sure you want to delete this report?")) return;
 
     try {
-      await API.delete(`/reports/${report._id}`);
+      await API.delete(`/api/reports/${report._id}`);
       onClose();
       onUpdate({ _id: report._id, deleted: true }); // signal deletion
     } catch (err) {
@@ -53,7 +53,7 @@ export default function ReportEditModal({ report, onClose, onUpdate }) {
         location: [parseFloat(formData.lng), parseFloat(formData.lat)],
       };
 
-      await API.put(`/reports/${report._id}`, body);
+      await API.put(`/api/reports/${report._id}`, body);
 
       onUpdate({
         ...report,

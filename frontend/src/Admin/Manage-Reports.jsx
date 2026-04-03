@@ -28,7 +28,7 @@ export default function Reports() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    API.get("/reports")
+    API.get("/api/reports")
       .then((res) => {
         setReports(res.data);
         setFiltered(res.data);

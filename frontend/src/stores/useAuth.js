@@ -15,9 +15,7 @@ const useAuth = create((set) => ({
   isAuthenticated: () => !!useAuth.getState().user,
   autoLogin: async () => {
     try {
-      const verifyRes = await API.get("/auth/verify", {
-        withCredentials: true,
-      });
+      const verifyRes = await API.get("/api/auth/verify");
 
       // `verify` already returns the full user object
       const fullUser = verifyRes.data.user;

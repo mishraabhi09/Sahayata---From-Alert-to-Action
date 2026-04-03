@@ -39,11 +39,20 @@ export default function AdminSidebar() {
 
   return (
     <>
-      {/* Mobile menu toggle */}
-      <div className="md:hidden fixed top-4 left-4 z-50 min-h-screen">
+      {/* Mobile overlay backdrop */}
+      {mobileOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-30"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile hamburger toggle */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-white bg-gray-800 p-2 rounded shadow"
+          className="text-white bg-gray-800 p-2 rounded shadow-lg"
+          aria-label="Toggle sidebar"
         >
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -51,56 +60,62 @@ export default function AdminSidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-screen z-40 bg-gray-900 text-white transform transition-all duration-300 ease-in-out
-        ${collapsed ? "w-16" : "w-64"}
+        className={`fixed top-0 left-0 h-screen z-40 bg-gray-900 text-white flex flex-col transform transition-all duration-300 ease-in-out
+        ${collapsed ? "md:w-16" : "md:w-64"}
         ${
           mobileOpen
-            ? "translate-x-0"
-            : "md:translate-x-0 -translate-x-full md:relative"
+            ? "w-64 translate-x-0"
+            : "-translate-x-full md:translate-x-0"
         }`}
       >
-        <div className={`p-4 flex flex-col h-full justify-between`}>
-          {/* Toggle button */}
-          <div>
+        <div className="flex flex-col h-full">
+          {/* Header with toggle */}
+          <div className="flex items-center justify-between p-4 border-b border-gray-700">
+            {!collapsed && (
+              <h2 className="text-lg font-bold truncate">Admin Panel</h2>
+            )}
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="mb-6 text-gray-400 hover:text-white"
+              className="text-gray-400 hover:text-white hidden md:block ml-auto"
+              aria-label="Toggle collapse"
             >
               {collapsed ? <Menu size={20} /> : <X size={20} />}
             </button>
-
-            {!collapsed && (
-              <h2 className="text-xl font-bold mb-8">Admin Panel</h2>
-            )}
-
-            <nav className="flex flex-col gap-3">
-              {navItems.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-800 transition text-sm ${
-                    location.pathname === item.to ? "bg-gray-800" : ""
-                  }`}
-                >
-                  {item.icon}
-                  {!collapsed && <span>{item.label}</span>}
-                </Link>
-              ))}
-            </nav>
           </div>
 
+          {/* Nav Links */}
+          <nav className="flex flex-col gap-1 p-2 flex-1 overflow-y-auto">
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-800 transition text-sm ${
+                  location.pathname === item.to
+                    ? "bg-gray-700 text-white font-semibold"
+                    : "text-gray-300"
+                }`}
+                title={collapsed ? item.label : ""}
+              >
+                <span className="shrink-0">{item.icon}</span>
+                {!collapsed && <span className="truncate">{item.label}</span>}
+              </Link>
+            ))}
+          </nav>
+
           {!collapsed && (
-            <p className="text-xs text-gray-500 mt-6">© 2025 Sajilo Sahayata</p>
+            <p className="text-xs text-gray-500 p-4 border-t border-gray-700">
+              © 2025 Sajilo Sahayata
+            </p>
           )}
         </div>
       </aside>
 
-      {/* Padding for main content */}
+      {/* Spacer for desktop - pushes main content */}
       <div
-        className={`${
-          collapsed ? "ml-8" : "ml-16"
-        } transition-all duration-300 hidden md:block`}
+        className={`hidden md:block shrink-0 transition-all duration-300 ${
+          collapsed ? "w-16" : "w-64"
+        }`}
       />
     </>
   );

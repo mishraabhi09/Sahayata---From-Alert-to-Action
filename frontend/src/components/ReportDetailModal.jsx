@@ -1,11 +1,26 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-const ReportDetailModal = ({ report, onClose }) => {
+const ReportDetailModal = ({ report, onClose, onStatusChange }) => {
   if (!report) return null;
-  const [status, setStatus] = useState(report.status);
+  const [status, setStatus] = useState(report.status || "pending");
+  const [loading, setLoading] = useState(false);
 
-  const statusOptions = ["Status", "In Progress", "Rejected", "Resolved"];
+  const statusOptions = ["pending", "working", "resolved", "rejected"];
+
+  const handleUpdateStatus = async () => {
+    setLoading(true);
+    try {
+      await axios.put(`http://localhost:3000/api/reports/${report._id || report.id}/status`, { status });
+      if (onStatusChange) onStatusChange();
+      onClose();
+    } catch (err) {
+      console.error("Failed to update status", err);
+      alert("Failed to update status");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex justify-center items-center font-sans">
@@ -110,17 +125,20 @@ const ReportDetailModal = ({ report, onClose }) => {
                 className="w-full h-32 object-cover rounded-md"
               />
             </div>
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm"
-            >
-              {statusOptions.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
+            <div className="flex gap-2 items-center">
+              <span className="font-semibold text-gray-800">Update Status:</span>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="bg-blue-600 outline-none text-white px-3 py-2 rounded-md text-sm cursor-pointer capitalize"
+              >
+                {statusOptions.map((opt) => (
+                  <option key={opt} value={opt} className="capitalize">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         )}
 
@@ -128,12 +146,17 @@ const ReportDetailModal = ({ report, onClose }) => {
         <div className="flex justify-between pt-2">
           <button
             onClick={onClose}
-            className="bg-gray-300 text-gray-800 px-5 py-2 rounded-full text-sm hover:bg-gray-400"
+            className="bg-gray-300 text-gray-800 px-5 py-2 rounded-full text-sm hover:bg-gray-400 disabled:opacity-50"
+            disabled={loading}
           >
-            Back
+            Close
           </button>
-          <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm hover:bg-blue-700">
-            Status
+          <button 
+            onClick={handleUpdateStatus}
+            disabled={loading || status === report.status}
+            className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? "Saving..." : "Save Status"}
           </button>
         </div>
       </div>

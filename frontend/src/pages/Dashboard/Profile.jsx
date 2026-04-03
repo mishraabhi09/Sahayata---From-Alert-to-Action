@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import usePreferences from "../../stores/UsePreference.jsx";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../stores/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocalGovStore } from "../../stores/localGovStore";
+import API from "../../api/axios";
+import { useRef } from "react";
 
 const drawerVariants = {
   hidden: { x: "100%" },
@@ -34,6 +36,7 @@ const ProfileDrawer = ({ open, onClose }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { localGov } = useLocalGovStore();
+  const [showPhotoOptions, setShowPhotoOptions] = useState(false);
 
   const {
     theme,
@@ -48,6 +51,8 @@ const ProfileDrawer = ({ open, onClose }) => {
 
   const user = useAuth((state) => state.user);
   const logout = useAuth((state) => state.logout);
+  const autoLogin = useAuth((state) => state.autoLogin);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
@@ -58,6 +63,36 @@ const ProfileDrawer = ({ open, onClose }) => {
     logout();
     onClose();
     navigate("/welcome");
+  };
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      await API.put("/api/auth/profile/photo", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      await autoLogin(); // Refresh user data globally
+    } catch (error) {
+      console.error("Failed to upload photo:", error);
+      alert("Failed to upload new profile photo.");
+    }
+  };
+
+  const handleRemovePhoto = async () => {
+    try {
+      await API.delete("/api/auth/profile/photo");
+      await autoLogin(); // Refresh user data globally
+    } catch (error) {
+      console.error("Failed to remove photo:", error);
+      alert("Failed to remove profile photo.");
+    }
   };
 
   return (
@@ -80,14 +115,14 @@ const ProfileDrawer = ({ open, onClose }) => {
             animate="visible"
             exit="exit"
             variants={drawerVariants}
-            className="fixed top-0 right-0 h-full w-[90vw] sm:w-[380px] bg-white z-50 shadow-lg flex flex-col"
+            className="fixed top-0 right-0 h-full w-[90vw] sm:w-[380px] bg-white dark:bg-gray-900 z-50 shadow-lg flex flex-col transition-colors duration-300"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b shrink-0">
+            <div className="flex items-center justify-between p-4 border-b dark:border-gray-700 shrink-0">
               <button
                 onClick={onClose}
                 aria-label={t("profile.back")}
-                className="text-2xl text-gray-700"
+                className="text-2xl text-gray-700 dark:text-gray-200"
               >
                 ←
               </button>
@@ -97,7 +132,7 @@ const ProfileDrawer = ({ open, onClose }) => {
 
             {/* Content */}
             <motion.div
-              className="overflow-y-auto p-4 space-y-4 text-sm text-gray-800 flex-1"
+              className="overflow-y-auto p-4 space-y-4 text-sm text-gray-800 dark:text-gray-200 flex-1"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -109,30 +144,71 @@ const ProfileDrawer = ({ open, onClose }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <div
-                  className="w-24 h-24 rounded-full relative bg-cover bg-center bg-no-repeat"
-                  style={{
-                    backgroundImage: `url('/assets/dummy/krishna.jpg')`,
-                  }}
-                >
-                  <button className="absolute bottom-1 right-1 bg-white p-1 rounded-full shadow text-xs cursor-pointer hover:bg-gray-100 transition">
-                    ✏️
-                  </button>
+                <div className="relative">
+                  <div
+                    className="w-24 h-24 rounded-full relative bg-cover bg-center bg-no-repeat cursor-pointer shadow border-2 border-transparent hover:border-gray-200 transition-all z-10"
+                    onClick={() => setShowPhotoOptions(!showPhotoOptions)}
+                    style={{
+                      backgroundImage: `url(${user?.image_url || '/assets/dummy/krishna.jpg'})`,
+                    }}
+                  >
+                    <button className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 p-1.5 rounded-full shadow-md text-xs hover:bg-gray-100 dark:hover:bg-gray-700 transition border dark:border-gray-600">
+                      ✏️
+                    </button>
+                  </div>
+                  
+                  {/* Photo Edit Dropdown */}
+                  <AnimatePresence>
+                    {showPhotoOptions && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="absolute top-[102px] left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 shadow-xl rounded-lg py-1 w-36 text-sm z-[100] border dark:border-gray-700"
+                      >
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={fileInputRef}
+                          onChange={handlePhotoUpload}
+                          className="hidden"
+                        />
+                        <button 
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200 transition"
+                          onClick={() => {
+                            setShowPhotoOptions(false);
+                            fileInputRef.current.click();
+                          }}
+                        >
+                          📷 Edit Photo
+                        </button>
+                        <button 
+                          className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/40 transition"
+                          onClick={() => {
+                            setShowPhotoOptions(false);
+                            handleRemovePhoto();
+                          }}
+                        >
+                          🗑️ Remove Photo
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <p className="mt-2 text-lg font-bold">
+                <p className="mt-2 text-lg font-bold dark:text-white">
                   {user?.username || "Guest"}
                 </p>
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
                   {user?.role || "Not logged in"}
                 </p>
-                <p className="text-sm">
+                <p className="text-sm dark:text-gray-300">
                   📍 {localGov || "Detecting your local government..."}
                 </p>
               </motion.div>
 
               {user && (
                 <motion.div
-                  className="bg-gray-50 rounded-lg p-4 space-y-2"
+                  className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-2"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -167,7 +243,7 @@ const ProfileDrawer = ({ open, onClose }) => {
               )}
 
               {/* Preferences */}
-              <div className="bg-gray-50 rounded-lg p-4 space-y-4">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-4">
                 <SelectRow
                   label={t("profile.language")}
                   value={language}
@@ -175,6 +251,9 @@ const ProfileDrawer = ({ open, onClose }) => {
                   options={[
                     { value: "en", label: "English" },
                     { value: "ne", label: "नेपाली" },
+                    { value: "hi", label: "हिन्दी" },
+                    { value: "kn", label: "ಕನ್ನಡ" },
+                    { value: "bn", label: "বাংলা" },
                   ]}
                 />
                 <SelectRow
@@ -207,7 +286,7 @@ const ProfileDrawer = ({ open, onClose }) => {
                     onClick={() =>
                       setTheme(theme === "light" ? "dark" : "light")
                     }
-                    className="block w-full bg-gray-100 border rounded py-1 mt-1"
+                    className="block w-full bg-gray-100 dark:bg-gray-700 dark:text-white border dark:border-gray-600 rounded py-1 mt-1"
                   >
                     {theme === "light" ? "🌙 Dark Mode" : "🌞 Light Mode"}
                   </button>
@@ -216,7 +295,7 @@ const ProfileDrawer = ({ open, onClose }) => {
 
               {/* Community Text */}
               <motion.div
-                className="bg-white text-center text-md font-medium p-3 rounded-lg shadow border"
+                className="bg-white dark:bg-gray-800 text-center text-md font-medium p-3 rounded-lg shadow border dark:border-gray-700"
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -280,8 +359,8 @@ const ProfileDrawer = ({ open, onClose }) => {
 
 const InfoRow = ({ label, value }) => (
   <div className="flex justify-between">
-    <span className="text-gray-500">{label}</span>
-    <span>{value}</span>
+    <span className="text-gray-500 dark:text-gray-400">{label}</span>
+    <span className="dark:text-gray-200">{value}</span>
   </div>
 );
 
@@ -289,7 +368,7 @@ const SelectRow = ({ label, value, onChange, options }) => (
   <label className="block text-sm font-medium">
     {label}
     <select
-      className="w-full mt-1 border rounded px-2 py-1"
+      className="w-full mt-1 border dark:border-gray-600 rounded px-2 py-1 dark:bg-gray-700 dark:text-white"
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >

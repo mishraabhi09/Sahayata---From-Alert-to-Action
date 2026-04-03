@@ -2,12 +2,16 @@ import { Router } from "express";
 import {
   registerUser,
   loginUser,
+  registerAdmin,
+  loginAdmin,
   getUserById,
   getAllUsersAroundLocation,
   uploadImage,
   verifyUser,
   updateUserRole,
   deleteUser,
+  updateProfilePhoto,
+  removeProfilePhoto,
 } from "../controllers/authController";
 
 import authenticateToken from "../middlewares/authenticateToken";
@@ -18,9 +22,16 @@ const router = Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/admin/register", registerAdmin);
+router.post("/admin/login", loginAdmin);
+
 router.get("/verify", authenticateToken, verifyUser);
 router.get("/users/:id", getUserById);
 router.get("/users/around", getAllUsersAroundLocation);
+
+// Profile Photo Management
+router.put("/profile/photo", authenticateToken, uploadImage, updateProfilePhoto);
+router.delete("/profile/photo", authenticateToken, removeProfilePhoto);
 
 // ✅ Admin-only routes
 router.get("/users", authenticateToken, requireAdmin, async (req, res) => {
