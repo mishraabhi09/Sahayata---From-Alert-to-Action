@@ -44,7 +44,7 @@ It provides APIs for user authentication, incident reporting, and alert broadcas
 ### 1. Clone Repository
 
 ````bash
-git clone https://github.com/arundada9000/sajilo-sahayata.git
+git clone <repository-url>
 cd sajilo-sahayata/backend
 npm install
 npm run dev
@@ -94,6 +94,4 @@ npm run dev
 
 ```
 
-**Need Help?**
 
-- Contact me on WhatsApp: **+977 9811420975**
