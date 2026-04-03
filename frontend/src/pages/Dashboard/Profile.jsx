@@ -37,6 +37,10 @@ const ProfileDrawer = ({ open, onClose }) => {
   const { t } = useTranslation();
   const { localGov } = useLocalGovStore();
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
+  const [pendingFile, setPendingFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [pendingRemove, setPendingRemove] = useState(false);
+  const [isSavingPhoto, setIsSavingPhoto] = useState(false);
 
   const {
     theme,
@@ -65,33 +69,52 @@ const ProfileDrawer = ({ open, onClose }) => {
     navigate("/welcome");
   };
 
-  const handlePhotoUpload = async (e) => {
+  const handlePhotoSelect = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      await API.put("/api/auth/profile/photo", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      await autoLogin(); // Refresh user data globally
-    } catch (error) {
-      console.error("Failed to upload photo:", error);
-      alert("Failed to upload new profile photo.");
-    }
+    
+    setPendingFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    setPendingRemove(false);
+    setShowPhotoOptions(false);
   };
 
-  const handleRemovePhoto = async () => {
+  const handleSetRemovePending = () => {
+    setPendingRemove(true);
+    setPendingFile(null);
+    setPreviewUrl(null);
+    setShowPhotoOptions(false);
+  };
+
+  const handleCancelChanges = () => {
+    setPendingFile(null);
+    setPreviewUrl(null);
+    setPendingRemove(false);
+  };
+
+  const handleSaveChanges = async () => {
+    setIsSavingPhoto(true);
     try {
-      await API.delete("/api/auth/profile/photo");
-      await autoLogin(); // Refresh user data globally
+      if (pendingRemove) {
+        await API.delete("/api/auth/profile/photo");
+      } else if (pendingFile) {
+        const formData = new FormData();
+        formData.append("image", pendingFile);
+        await API.put("/api/auth/profile/photo", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+      await autoLogin(); // Refresh user data locally and globally
+      setPendingFile(null);
+      setPreviewUrl(null);
+      setPendingRemove(false);
     } catch (error) {
-      console.error("Failed to remove photo:", error);
-      alert("Failed to remove profile photo.");
+      console.error("Failed to update photo:", error);
+      alert("Failed to update profile photo.");
+    } finally {
+      setIsSavingPhoto(false);
     }
   };
 
@@ -149,13 +172,29 @@ const ProfileDrawer = ({ open, onClose }) => {
                     className="w-24 h-24 rounded-full relative bg-cover bg-center bg-no-repeat cursor-pointer shadow border-2 border-transparent hover:border-gray-200 transition-all z-10"
                     onClick={() => setShowPhotoOptions(!showPhotoOptions)}
                     style={{
-                      backgroundImage: `url(${user?.image_url || '/assets/dummy/krishna.jpg'})`,
+                      backgroundImage: `url(${
+                        previewUrl
+                          ? previewUrl
+                          : pendingRemove
+                          ? '/assets/dummy/krishna.jpg' 
+                          : user?.image_url || '/assets/dummy/krishna.jpg'
+                      })`,
+                      opacity: pendingRemove ? 0.5 : 1
                     }}
                   >
                     <button className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 p-1.5 rounded-full shadow-md text-xs hover:bg-gray-100 dark:hover:bg-gray-700 transition border dark:border-gray-600">
                       ✏️
                     </button>
                   </div>
+                  
+                  {/* Hidden File Input */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handlePhotoSelect}
+                    className="hidden"
+                  />
                   
                   {/* Photo Edit Dropdown */}
                   <AnimatePresence>
@@ -166,35 +205,60 @@ const ProfileDrawer = ({ open, onClose }) => {
                         exit={{ opacity: 0, scale: 0.95 }}
                         className="absolute top-[102px] left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 shadow-xl rounded-lg py-1 w-36 text-sm z-[100] border dark:border-gray-700"
                       >
-                        <input
-                          type="file"
-                          accept="image/*"
-                          ref={fileInputRef}
-                          onChange={handlePhotoUpload}
-                          className="hidden"
-                        />
                         <button 
                           className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200 transition"
                           onClick={() => {
                             setShowPhotoOptions(false);
-                            fileInputRef.current.click();
+                            if (fileInputRef.current) {
+                               fileInputRef.current.click();
+                            }
                           }}
                         >
-                          📷 Edit Photo
+                          📷 Change Photo
                         </button>
-                        <button 
-                          className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/40 transition"
-                          onClick={() => {
-                            setShowPhotoOptions(false);
-                            handleRemovePhoto();
-                          }}
-                        >
-                          🗑️ Remove Photo
-                        </button>
+                        {(user?.image_url || pendingFile) && !pendingRemove && (
+                          <button 
+                            className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/40 transition"
+                            onClick={handleSetRemovePending}
+                          >
+                            🗑️ Remove Photo
+                          </button>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
+                
+                {/* Save / Cancel Photo Buttons */}
+                <AnimatePresence>
+                  {(pendingFile || pendingRemove) && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="flex gap-2 mt-4"
+                    >
+                      <button 
+                        onClick={handleSaveChanges}
+                        disabled={isSavingPhoto}
+                        className="px-4 py-1.5 bg-green-500 text-white rounded text-sm hover:bg-green-600 transition flex items-center justify-center min-w-[80px]"
+                      >
+                        {isSavingPhoto ? (
+                          <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        ) : (
+                          "Save"
+                        )}
+                      </button>
+                      <button 
+                        onClick={handleCancelChanges}
+                        disabled={isSavingPhoto}
+                        className="px-4 py-1.5 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200 rounded text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                      >
+                        Cancel
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 <p className="mt-2 text-lg font-bold dark:text-white">
                   {user?.username || "Guest"}
                 </p>
