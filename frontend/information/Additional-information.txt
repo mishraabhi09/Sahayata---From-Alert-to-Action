@@ -13,6 +13,6 @@ Mainly we work with Geo-location ,based on your current location sajilo-sahayata
 A nice dashboard for admin to manage users, alerts and reports.
 Real time reporting using power of nodejs. 
 
-Developer : Arun Neupane
+Developer : [Redacted]
 Any kind of help is appreciated.
-Contact info : +977 9811420975
+Contact info : Please use the designated GitHub repository for queries!

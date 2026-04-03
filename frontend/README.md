@@ -44,7 +44,7 @@ A full-stack application built using React, Tailwind CSS, Node.js, Express, Mong
 ### 1. Clone:
 
 ````bash
-git clone https://github.com/arundada9000/Sajilo-Sahayata.git
+git clone <repository-url>
 cd Sajilo-Sahayata
 cd frontend
 npm install
@@ -179,4 +179,4 @@ sajilo-sahayata-frontend/
 
 **Need Help?**
 
-- Contact me on WhatsApp: **+977 9811420975**
+- For support, please open an Issue on GitHub.
