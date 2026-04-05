@@ -12,6 +12,7 @@ import {
   deleteUser,
   updateProfilePhoto,
   removeProfilePhoto,
+  updateProfileDetails,
 } from "../controllers/authController";
 
 import authenticateToken from "../middlewares/authenticateToken";
@@ -29,7 +30,8 @@ router.get("/verify", authenticateToken, verifyUser);
 router.get("/users/:id", getUserById);
 router.get("/users/around", getAllUsersAroundLocation);
 
-// Profile Photo Management
+// Profile Management
+router.put("/profile", authenticateToken, updateProfileDetails);
 router.put("/profile/photo", authenticateToken, uploadImage, updateProfilePhoto);
 router.delete("/profile/photo", authenticateToken, removeProfilePhoto);
 

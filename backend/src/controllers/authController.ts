@@ -377,3 +377,29 @@ export const removeProfilePhoto = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error removing profile photo", error });
   }
 };
+
+export const updateProfileDetails = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { username, email, gender, citizenshipId, address } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $set: { username, email, gender, citizenshipId, address } },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "Profile updated successfully", user });
+  } catch (error) {
+    console.error("Profile update failed:", error);
+    res.status(500).json({ message: "Error updating profile details", error });
+  }
+};
