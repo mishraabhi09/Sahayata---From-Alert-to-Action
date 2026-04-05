@@ -166,7 +166,7 @@ export default function Reports() {
 
         <button
           onClick={() => setFilters({ status: "", type: "" })}
-          className="ml-auto px-4 py-2 bg-gray-100 hover:bg-gray-200 text-sm rounded-md border border-gray-300"
+          className="ml-auto px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded-md border border-gray-300"
         >
           Clear Filters
         </button>

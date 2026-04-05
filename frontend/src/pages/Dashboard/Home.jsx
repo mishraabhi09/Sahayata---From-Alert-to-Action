@@ -471,7 +471,7 @@ const Dashboard = () => {
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="text-sm bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
+            className="text-sm bg-white text-gray-900 border border-gray-300 rounded px-2 py-1"
           >
             <option value="all">{t("dashboard.All")}</option>
             <option value="verified">{t("dashboard.Verified")}</option>

@@ -42,6 +42,16 @@ const ProfileDrawer = ({ open, onClose }) => {
   const [pendingRemove, setPendingRemove] = useState(false);
   const [isSavingPhoto, setIsSavingPhoto] = useState(false);
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    gender: "",
+    citizenshipId: "",
+    address: "",
+  });
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+
   const {
     theme,
     setTheme,
@@ -98,9 +108,9 @@ const ProfileDrawer = ({ open, onClose }) => {
       if (pendingRemove) {
         await API.delete("/api/auth/profile/photo");
       } else if (pendingFile) {
-        const formData = new FormData();
-        formData.append("image", pendingFile);
-        await API.put("/api/auth/profile/photo", formData, {
+        const formDataUpload = new FormData();
+        formDataUpload.append("image", pendingFile);
+        await API.put("/api/auth/profile/photo", formDataUpload, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -115,6 +125,38 @@ const ProfileDrawer = ({ open, onClose }) => {
       alert("Failed to update profile photo.");
     } finally {
       setIsSavingPhoto(false);
+    }
+  };
+
+  const handleEditProfileToggle = () => {
+    if (!isEditing && user) {
+      setFormData({
+        username: user.username || "",
+        email: user.email || "",
+        gender: user.gender || "",
+        citizenshipId: user.citizenshipId || "",
+        address: user.address || "",
+      });
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSaveProfile = async () => {
+    setIsSavingProfile(true);
+    try {
+      await API.put("/api/auth/profile", formData);
+      await autoLogin(); // Re-fetch user to reflect changes
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update profile details:", error);
+      alert("Failed to update profile.");
+    } finally {
+      setIsSavingProfile(false);
     }
   };
 
@@ -272,7 +314,7 @@ const ProfileDrawer = ({ open, onClose }) => {
 
               {user && (
                 <motion.div
-                  className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-2"
+                  className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -282,27 +324,79 @@ const ProfileDrawer = ({ open, onClose }) => {
                     },
                   }}
                 >
-                  {[
-                    { label: t("profile.phone"), value: user.phoneNumber },
-                    { label: t("profile.email"), value: user.email },
-                    { label: t("profile.gender"), value: user.gender },
-                    {
-                      label: t("profile.citizenship"),
-                      value: user.citizenshipId,
-                    },
-                    { label: t("profile.address"), value: user.address },
-                  ].map((info, idx) => (
-                    <motion.div
-                      key={idx}
-                      variants={{
-                        hidden: { opacity: 0, y: 5 },
-                        visible: { opacity: 1, y: 0 },
-                      }}
-                      transition={{ duration: 0.2 }}
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-semibold text-gray-700 dark:text-gray-200">User Details</h3>
+                    <button 
+                      onClick={handleEditProfileToggle} 
+                      className="text-xs px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition"
                     >
-                      <InfoRow label={info.label} value={info.value || "N/A"} />
+                      {isEditing ? "Cancel Edit" : "Edit Profile"}
+                    </button>
+                  </div>
+
+                  {isEditing ? (
+                    <motion.div className="space-y-3" initial={{opacity:0}} animate={{opacity:1}}>
+                      <div>
+                        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Username</label>
+                        <input name="username" value={formData.username} onChange={handleProfileChange} className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Phone Number (Read-only)</label>
+                        <input value={user.phoneNumber || ""} disabled className="w-full text-sm p-1.5 border rounded bg-gray-100 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300 cursor-not-allowed" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Email</label>
+                        <input name="email" value={formData.email} onChange={handleProfileChange} className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Gender</label>
+                        <select name="gender" value={formData.gender} onChange={handleProfileChange} className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                          <option value="">Select Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Citizenship ID</label>
+                        <input name="citizenshipId" value={formData.citizenshipId} onChange={handleProfileChange} className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Address</label>
+                        <input name="address" value={formData.address} onChange={handleProfileChange} className="w-full text-sm p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
+                      </div>
+                      <div className="pt-2">
+                        <button 
+                          onClick={handleSaveProfile}
+                          disabled={isSavingProfile}
+                          className="w-full bg-blue-600 text-white py-2 rounded text-sm hover:bg-blue-700 transition"
+                        >
+                          {isSavingProfile ? "Saving..." : "Save Details"}
+                        </button>
+                      </div>
                     </motion.div>
-                  ))}
+                  ) : (
+                    <>
+                      {[
+                        { label: t("profile.phone"), value: user.phoneNumber },
+                        { label: t("profile.email"), value: user.email },
+                        { label: t("profile.gender"), value: user.gender },
+                        { label: t("profile.citizenship"), value: user.citizenshipId },
+                        { label: t("profile.address"), value: user.address },
+                      ].map((info, idx) => (
+                        <motion.div
+                          key={idx}
+                          variants={{
+                            hidden: { opacity: 0, y: 5 },
+                            visible: { opacity: 1, y: 0 },
+                          }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <InfoRow label={info.label} value={info.value || "N/A"} />
+                        </motion.div>
+                      ))}
+                    </>
+                  )}
                 </motion.div>
               )}
 

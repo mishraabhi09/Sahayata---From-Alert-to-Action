@@ -33,6 +33,12 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+input,
+textarea,
+select {
+  color: #111827;
+}
+
 #root {
   width: 100%;
   min-height: 100vh;
